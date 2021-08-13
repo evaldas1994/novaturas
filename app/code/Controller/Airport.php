@@ -43,14 +43,28 @@ class Airport
         $controller->render("main/airport/show", $data);
     }
 
-    public function edit()
+    public function edit($id)
     {
+        $airport = new AirportModel();
+        $airport->load($id);
 
+        $data['airport'] = $airport;
+
+        $controller = new Controller();
+        $controller->render("main/airport/edit", $data);
     }
 
-    public function update()
+    public function update($id)
     {
+        $request = new Request();
+        $airport = new AirportModel();
+        $airport->load($id);
 
+        $airport->setName($request->getPost("name"));
+        $airport->setCountry($request->getPost("country"));
+        $airport->setLocation($request->getPost("location"));
+        $airport->setAirlines($request->getPost("airlines"));
+        $airport->save();
     }
 
     public function delete()

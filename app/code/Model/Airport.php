@@ -75,7 +75,7 @@ class Airport
             "name" => $this->name,
             "country" => $this->country,
             "location" => $this->location,
-            "airlines" => (implode(',', $this->airlines))
+            "airlines" => implode(',', $this->airlines)
         ];
 
         $db->insert("airports")->values($airport)->exec();
@@ -89,7 +89,7 @@ class Airport
             "name" => $this->name,
             "country" => $this->country,
             "location" => $this->location,
-            "airlines" => (implode(',', $this->airlines))
+            "airlines" => implode(',', $this->airlines)
         ];
 
         $db->update("airports")->set($airport)->where("id", $this->id)->exec();
