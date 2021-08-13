@@ -67,8 +67,9 @@ class Airport
         $airport->save();
     }
 
-    public function delete()
+    public function delete($id)
     {
-
+        $airport = new AirportModel();
+        $airport->destroy($id);
     }
 }

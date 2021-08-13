@@ -105,4 +105,10 @@ class Airport
         $this->location = $airport["location"];
         $this->airlines = explode(',', $airport["airlines"]);
     }
+
+    public function destroy($id)
+    {
+        $db = new Db();
+        $db->delete()->from("airports")->where("id", $id)->exec();
+    }
 }
