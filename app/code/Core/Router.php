@@ -44,6 +44,10 @@ class Router
                             $urlParams["class"] = $this->getControllerClass("error");
                             $urlParams["method"] = "index";
                         }
+
+                        if (isset($path[2])) {
+                            $urlParams["param"] = $path[2];
+                        }
                     }
                 } else {
                     $urlParams["class"] = $this->getControllerClass("error");

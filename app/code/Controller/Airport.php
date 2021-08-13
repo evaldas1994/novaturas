@@ -32,9 +32,15 @@ class Airport
         $airport->save();
     }
 
-    public function show()
+    public function show($id)
     {
+        $airport = new AirportModel();
+        $airport->load($id);
 
+        $data['airport'] = $airport;
+
+        $controller = new Controller();
+        $controller->render("main/airport/show", $data);
     }
 
     public function edit()

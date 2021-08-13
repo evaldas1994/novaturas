@@ -64,6 +64,17 @@ class Db
         return isset($rez[0]) ? $rez[0] : null;
     }
 
+    public function getOnee()
+    {
+        $statment = $this->pdo->query($this->sql);
+        $rez = [];
+        while ($row = $statment->fetch()) {
+            $rez[] = $row;
+        }
+
+        return isset($rez[0]) ? $rez[0] : null;
+    }
+
 
     public function select($fields = '*')
     {

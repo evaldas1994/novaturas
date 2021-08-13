@@ -12,6 +12,11 @@ class Airport
     private $location;
     private $airlines;
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getName()
     {
         return $this->name;
@@ -83,10 +88,21 @@ class Airport
         $airport = [
             "name" => $this->name,
             "country" => $this->country,
-            "location" => '54.656592, 25.242643',
-            "airlines" => [2,5,6,8,4]
+            "location" => $this->location,
+            "airlines" => (implode(',', $this->airlines))
         ];
 
         $db->update("airports")->set($airport)->where("id", $this->id)->exec();
+    }
+
+    public function load($id) {
+        $db = new Db();
+        $airport = $db->select()->from("airports")->where("id", $id)->getOne();
+
+        $this->id = $airport["id"];
+        $this->name = $airport["name"];
+        $this->country = $airport["country"];
+        $this->location = $airport["location"];
+        $this->airlines = explode(',', $airport["airlines"]);
     }
 }
