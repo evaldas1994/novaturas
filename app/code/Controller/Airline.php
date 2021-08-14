@@ -4,6 +4,7 @@ namespace Controller;
 
 use Core\Controller;
 use Core\Request;
+use Helper\Validation\FormValidation;
 use Model\Airline as AirlineModel;
 use Helper\Url;
 
@@ -26,13 +27,14 @@ class Airline
         $request = new Request();
         $airline = new AirlineModel();
 
-        $airline->setName($request->getPost("name"));
-        $airline->setCountry($request->getPost("country"));
+        if ($this->validate()) {
+            $airline->setName($request->getPost("name"));
+            $airline->setCountry($request->getPost("country"));
 
-        $airline->save();
+            $airline->save();
+        }
 
         header('location: '.Url::make('airline'));
-        exit;
     }
 
     public function show($id)
@@ -63,11 +65,13 @@ class Airline
         $airline = new AirlineModel();
         $airline->load($id);
 
-        $airline->setName($request->getPost("name"));
-        $airline->setCountry($request->getPost("country"));
-        $airline->save();
+        if ($this->validate()) {
+            $airline->setName($request->getPost("name"));
+            $airline->setCountry($request->getPost("country"));
+            $airline->save();
+        }
 
-        header('location: '.Url::make('airline'));
+        header('location: '.Url::make('airline/edit/' . $id));
     }
 
     public function delete($id)
@@ -76,5 +80,19 @@ class Airline
         $airline->destroy($id);
 
         header('location: '.Url::make('airline'));
+    }
+
+    private function validate(): bool
+    {
+        $request = new Request();
+
+        if (
+            FormValidation::isNameValid($request->getPost("name")) &&
+            FormValidation::isCountryValid($request->getPost("country"))
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }

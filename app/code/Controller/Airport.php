@@ -74,7 +74,7 @@ class Airport
             $airport->save();
         }
 
-        header('location: '.Url::make('airport'));
+        header('location: '.Url::make('airport/edit/' . $id));
     }
 
     public function delete($id)
