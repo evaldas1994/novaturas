@@ -41,4 +41,26 @@ class Airline
         $controller = new Controller();
         $controller->render("main/airline/show", $data);
     }
+
+    public function edit($id)
+    {
+        $airline = new AirlineModel();
+        $airline->load($id);
+
+        $data['airline'] = $airline;
+
+        $controller = new Controller();
+        $controller->render("main/airline/edit", $data);
+    }
+
+    public function update($id)
+    {
+        $request = new Request();
+        $airline = new AirlineModel();
+        $airline->load($id);
+
+        $airline->setName($request->getPost("name"));
+        $airline->setCountry($request->getPost("country"));
+        $airline->save();
+    }
 }

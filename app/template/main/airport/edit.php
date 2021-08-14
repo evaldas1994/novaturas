@@ -1,4 +1,4 @@
-<h1>Airport (CREATE) </h1>
+<h1>Airport (UPDATE) </h1>
 
 <form method="post" action=<?php BASE_URL?> "/airport/update/<?= $data['airport']->getId()?>" >
     <input type="text" name="name" placeholder="Pavadinimas" value=<?= $data['airport']->getId()?> >

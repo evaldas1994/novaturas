@@ -66,7 +66,7 @@ class Airline
             "country" => $this->country
         ];
 
-        $db->update("airports")->set($airline)->where("id", $this->id)->exec();
+        $db->update("airlines")->set($airline)->where("id", $this->id)->exec();
     }
 
     public function load($id) {
