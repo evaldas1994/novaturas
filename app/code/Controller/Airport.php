@@ -3,6 +3,7 @@
 namespace Controller;
 
 use Core\Controller;
+use Helper\Url;
 use Model\Airport as AirportModel;
 use Core\Request;
 
@@ -30,6 +31,8 @@ class Airport
         $airport->setLocation($request->getPost("location"));
         $airport->setAirlines($request->getPost("airlines"));
         $airport->save();
+
+        header('location: '.Url::make('airport'));
     }
 
     public function show($id)
@@ -65,11 +68,15 @@ class Airport
         $airport->setLocation($request->getPost("location"));
         $airport->setAirlines($request->getPost("airlines"));
         $airport->save();
+
+        header('location: '.Url::make('airport'));
     }
 
     public function delete($id)
     {
         $airport = new AirportModel();
         $airport->destroy($id);
+
+        header('location: '.Url::make('airport'));
     }
 }

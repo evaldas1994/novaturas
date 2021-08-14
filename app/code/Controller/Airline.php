@@ -5,6 +5,7 @@ namespace Controller;
 use Core\Controller;
 use Core\Request;
 use Model\Airline as AirlineModel;
+use Helper\Url;
 
 class Airline
 {
@@ -29,6 +30,9 @@ class Airline
         $airline->setCountry($request->getPost("country"));
 
         $airline->save();
+
+        header('location: '.Url::make('airline'));
+        exit;
     }
 
     public function show($id)
@@ -62,11 +66,15 @@ class Airline
         $airline->setName($request->getPost("name"));
         $airline->setCountry($request->getPost("country"));
         $airline->save();
+
+        header('location: '.Url::make('airline'));
     }
 
     public function delete($id)
     {
         $airline = new AirlineModel();
         $airline->destroy($id);
+
+        header('location: '.Url::make('airline'));
     }
 }
