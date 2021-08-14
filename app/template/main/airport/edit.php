@@ -1,7 +1,7 @@
 <h1>Airport (UPDATE) </h1>
 
 <form method="post" action=<?php BASE_URL?> "/airport/update/<?= $data['airport']->getId()?>" >
-    <input type="text" name="name" placeholder="Pavadinimas" value=<?= $data['airport']->getId()?> >
+    <input type="text" name="name" placeholder="Pavadinimas" value=<?= $data['airport']->getName()?> >
     <input type="text" name="country" placeholder="Šalis" value=<?= $data['airport']->getCountry()?> >
     <input type="text" name="location" placeholder="Koordinates" value=<?= $data['airport']->getLocation()?> >
 

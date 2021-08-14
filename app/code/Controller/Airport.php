@@ -4,6 +4,7 @@ namespace Controller;
 
 use Core\Controller;
 use Helper\Url;
+use Helper\Validation\FormValidation;
 use Model\Airport as AirportModel;
 use Core\Request;
 
@@ -26,11 +27,13 @@ class Airport
         $request = new Request();
         $airport = new AirportModel();
 
-        $airport->setName($request->getPost("name"));
-        $airport->setCountry($request->getPost("country"));
-        $airport->setLocation($request->getPost("location"));
-        $airport->setAirlines($request->getPost("airlines"));
-        $airport->save();
+        if ($this->validate()) {
+            $airport->setName($request->getPost("name"));
+            $airport->setCountry($request->getPost("country"));
+            $airport->setLocation($request->getPost("location"));
+            $airport->setAirlines($request->getPost("airlines"));
+            $airport->save();
+        }
 
         header('location: '.Url::make('airport'));
     }
@@ -63,11 +66,13 @@ class Airport
         $airport = new AirportModel();
         $airport->load($id);
 
-        $airport->setName($request->getPost("name"));
-        $airport->setCountry($request->getPost("country"));
-        $airport->setLocation($request->getPost("location"));
-        $airport->setAirlines($request->getPost("airlines"));
-        $airport->save();
+        if ($this->validate()) {
+            $airport->setName($request->getPost("name"));
+            $airport->setCountry($request->getPost("country"));
+            $airport->setLocation($request->getPost("location"));
+            $airport->setAirlines($request->getPost("airlines"));
+            $airport->save();
+        }
 
         header('location: '.Url::make('airport'));
     }
@@ -78,5 +83,21 @@ class Airport
         $airport->destroy($id);
 
         header('location: '.Url::make('airport'));
+    }
+
+    private function validate(): bool
+    {
+        $request = new Request();
+
+        if (
+            FormValidation::isNameValid($request->getPost("name")) &&
+            FormValidation::isCountryValid($request->getPost("country")) &&
+            FormValidation::isLocationValid($request->getPost("location")) &&
+            FormValidation::isAirlinesValid($request->getPost("airlines"))
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }

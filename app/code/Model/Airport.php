@@ -3,6 +3,7 @@
 namespace Model;
 
 use Core\Db;
+use Helper\Url;
 
 class Airport
 {
@@ -99,11 +100,15 @@ class Airport
         $db = new Db();
         $airport = $db->select()->from("airports")->where("id", $id)->getOne();
 
-        $this->id = $airport["id"];
-        $this->name = $airport["name"];
-        $this->country = $airport["country"];
-        $this->location = $airport["location"];
-        $this->airlines = explode(',', $airport["airlines"]);
+        if ($airport !== null) {
+            $this->id = $airport["id"];
+            $this->name = $airport["name"];
+            $this->country = $airport["country"];
+            $this->location = $airport["location"];
+            $this->airlines = explode(',', $airport["airlines"]);
+        } else {
+            header('location: '.Url::make('airport'));
+        }
     }
 
     public function destroy($id)
