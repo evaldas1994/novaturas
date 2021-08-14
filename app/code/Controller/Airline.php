@@ -3,6 +3,8 @@
 namespace Controller;
 
 use Core\Controller;
+use Core\Request;
+use Model\Airline as AirlineModel;
 
 class Airline
 {
@@ -10,5 +12,22 @@ class Airline
     {
         $controller = new Controller();
         $controller->render("main/airline/index", []);
+    }
+
+    public function create()
+    {
+        $controller = new Controller();
+        $controller->render("main/airline/create", []);
+    }
+
+    public function store()
+    {
+        $request = new Request();
+        $airline = new AirlineModel();
+
+        $airline->setName($request->getPost("name"));
+        $airline->setCountry($request->getPost("country"));
+
+        $airline->save();
     }
 }
