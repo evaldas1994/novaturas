@@ -63,4 +63,10 @@ class Airline
         $airline->setCountry($request->getPost("country"));
         $airline->save();
     }
+
+    public function delete($id)
+    {
+        $airline = new AirlineModel();
+        $airline->destroy($id);
+    }
 }
