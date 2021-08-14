@@ -30,4 +30,15 @@ class Airline
 
         $airline->save();
     }
+
+    public function show($id)
+    {
+        $airline = new AirlineModel();
+        $airline->load($id);
+
+        $data['airline'] = $airline;
+
+        $controller = new Controller();
+        $controller->render("main/airline/show", $data);
+    }
 }
